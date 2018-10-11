@@ -1,3 +1,5 @@
+import * as db from '../../data-base/firestore';
+
 export const typeDef = `
 type PersonType {
     name: String
@@ -22,13 +24,6 @@ type Mutation {
 }
 `;
 
-/*users.then(snapshot => {
-  snapshot.forEach((doc) => {
-    console.log(doc.data());
-  });
-})
-
-*/
 export const resolver = {
   PersonType: {
     matches(root, args, ctx) {
@@ -40,11 +35,12 @@ export const resolver = {
       return ctx.findPerson(ctx.persons, args.id);
     },
     persons(root, args, ctx) {
-      return ctx.persons;
+      return ctx.persons
     },
-    users(root, args, ctx) {
-      return ctx.users;
-    },
+    async users() {
+      const users = await db.user_coll.get();
+      return users.docs.map(user => user.data());
+    }
   },
   Mutation: {
     addPerson(root, args, ctx) {
@@ -52,3 +48,8 @@ export const resolver = {
     },
   },
 };
+
+/*const setAda = db.user_coll.doc().set({
+  name: 'ue'
+});
+*/

@@ -1,17 +1,3 @@
-import {db} from './firestore';
-
-/*
-var docRef = db.collection('users').doc('alovelace');
-
-console.log('docRef', docRef)
-
-var setAda = docRef.set({
-  name: 'Ada',
-});*/
-
-
-export const users = db.collection("users").get();
-
 export const persons = [
   {
     id: "1",

@@ -7,3 +7,6 @@ admin.initializeApp({
 });
 
 export const db = admin.firestore();
+
+// collections
+export const user_coll = db.collection('users');
